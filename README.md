@@ -10,4 +10,4 @@ Essentially, Noodlio Pay replaces your server-side, saving you the time to learn
 
 - [**Stripe Payments Kit**](https://www.noodl.io/market/product/P201604181926406/noodlio-pay-smooth-payments-with-stripe-accept-payments-without-a-server-side-setup): [Read the docs](stripe-charge.md)
 - [**Ionic Shop (Advanced Edition)**](https://www.noodl.io/market/product/P201602271203444/ionic-shop-advanced-edition-full-ecommerce-app-w-stripe-payments-and-admin): [Read the docs](ionic-shop-advanced-edition.md)
-- [**Ionic Shop**]https://www.noodl.io/market/product/P201512161327199/ionic-stripe-shop-full-ecommerce-app-w-stripe-payments-and-admin): [Read the docs](ionic-shop.md)
+- [**Ionic Shop**](https://www.noodl.io/market/product/P201512161327199/ionic-stripe-shop-full-ecommerce-app-w-stripe-payments-and-admin): [Read the docs](ionic-shop.md)
