@@ -20,20 +20,25 @@ With the new Noodlio Pay API, we don't need this anymore. So remove those lines 
 At the place where you removed the constants in **Step 2**, add the following lines of code:
 
 ```
-// Stripe Payments API
-// Obtain from:
-// - https://market.mashape.com/noodlio/noodlio-pay-smooth-payments-with-stripe
-var NOODLIO_PAY_API_URL         = "https://noodlio-pay.p.mashape.com";
-var NOODLIO_PAY_API_KEY         = "<YOUR-MASHAPE-API-KEY>";
+// ---------------------------------------------------------------------------------------------------------
+// !important settings
+// Please fill in the following constants to get the project up and running
+// You might need to create an account for some of the constants.
 
-// Stripe Account
-// Connect on both:
-// - https://www.noodl.io/pay/connect and
-// - https://www.noodl.io/pay/connect/test
-var STRIPE_ACCOUNT_ID           = "<YOUR-STRIPE-ACCOUNT-ID>"
+// Obtain your unique Mashape ID from here:
+// https://market.mashape.com/noodlio/noodlio-pay-smooth-payments-with-stripe
+var NOODLIO_PAY_API_URL         = "https://noodlio-pay.p.mashape.com";
+var NOODLIO_PAY_API_KEY         = "<YOUR-UNIQUE-MASHAPE-ID>";
+var NOODLIO_PAY_CHECKOUT_KEY    = {test: "pk_test_QGTo45DJY5kKmsX21RB3Lwvn", live: "pk_live_ZjOCjtf1KBlSHSyjKDDmOGGE"};
+
+// Obtain your unique Stripe Account Id from here:
+// https://www.noodl.io/pay/connect
+// Please also connect your account on this address
+// https://www.noodl.io/pay/connect/test
+var STRIPE_ACCOUNT_ID           = "<YOUR-UNIQUE-STRIPE-ID>";
 
 // Define whether you are in development mode (TEST_MODE: true) or production mode (TEST_MODE: false)
-var TEST_MODE = false;
+var TEST_MODE = true;
 ```
 
 The `NOODLIO_PAY_API_URL` is basically the location of the server and is fixed. The variable `TEST_MODE` simply takes the values `true` or `false` and defines whether we are in test mode (development) or production (actually charging the user). Now let's define two constants:
