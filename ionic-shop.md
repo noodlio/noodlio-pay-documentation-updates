@@ -2,22 +2,7 @@
 
 If you have previously downloaded Ionic Stripe Shop, then follow these instructions to update your template to the latest Noodlio Pay API. You can read more about Noodlio Pay [here](https://www.noodl.io/market/product/P201604181926406/noodlio-pay-smooth-payments-with-stripe-accept-payments-without-a-server-side-setup).
 
-## Step 1: Connect your account to Noodlio Pay and obtain your Stripe Account ID
-
-Please visit the following links:
-
-- Production mode:
-[https://www.noodl.io/pay/connect](https://www.noodl.io/pay/connect)
-- Development mode:
-[https://www.noodl.io/pay/connect/test](https://www.noodl.io/pay/connect/test)
-
-Your unique Stripe Account ID will look something like this:
-
-```
-acct_12abcDEF34GhIJ5K
-```
-
-## Step 2: Replace the constants in `app.js`
+## Step 1: Replace the constants in `app.js`
 
 At the top of the file app.js, you'll find the following constants:
 
@@ -29,27 +14,61 @@ var STRIPE_API_PUBLISHABLE_KEY  = "<STRIPE_API_PUBLISHABLE_KEY>";
 
 With the new Noodlio Pay API, we don't need this anymore. So remove those lines of code.
 
-## Step 3: Add the new constants
+## Step 2: Add the new constants
 
 At the place where you removed the constants in **Step 2**, add the following lines of code:
 
 ```
-// These are fixed values, do not change this
+// Stripe Payments API
+// Obtain from:
+// - https://market.mashape.com/noodlio/noodlio-pay-smooth-payments-with-stripe
 var NOODLIO_PAY_API_URL         = "https://noodlio-pay.p.mashape.com";
-var NOODLIO_PAY_API_KEY         = "3fEagjJCGAmshMqVnwTR70bVqG3yp1lerJNjsnTzx5ODeOa99V";
-var NOODLIO_PAY_CHECKOUT_KEY    = {test: "pk_test_QGTo45DJY5kKmsX21RB3Lwvn", live: "pk_live_ZjOCjtf1KBlSHSyjKDDmOGGE"};
+var NOODLIO_PAY_API_KEY         = "<YOUR-MASHAPE-API-KEY>";
 
-// Obtain your unique Stripe Account Id from here:
-// https://www.noodl.io/pay/connect
-var STRIPE_ACCOUNT_ID           = "<YOUR-UNIQUE-ID>";
+// Stripe Account
+// Connect on both:
+// - https://www.noodl.io/pay/connect and
+// - https://www.noodl.io/pay/connect/test
+var STRIPE_ACCOUNT_ID           = "<YOUR-STRIPE-ACCOUNT-ID>"
 
 // Define whether you are in development mode (TEST_MODE: true) or production mode (TEST_MODE: false)
-var TEST_MODE = true;
+var TEST_MODE = false;
 ```
 
-And now, make sure to add replace `<YOUR-UNIQUE-ID>` with your Stripe Account Id obtained in **Step 1**.
+The `NOODLIO_PAY_API_URL` is basically the location of the server and is fixed. The variable `TEST_MODE` simply takes the values `true` or `false` and defines whether we are in test mode (development) or production (actually charging the user). Now let's define two constants:
 
-## Step 4: Update the config with the new environments
+**Mashape**
+
+To consume the Stripe Payments API, we'll need to obtain our unique `NOODLIO_PAY_API_KEY`. To do so, head over to [Mashape](https://market.mashape.com/noodlio/noodlio-pay-smooth-payments-with-stripe) and click on the right "Get your API Keys and Start Hacking" or press on "Sign up free".
+
+[<img src="http://noodlio-templates.firebaseapp.com/noodlio-pay/img/mashape-api-keys.png">](https://market.mashape.com/noodlio/noodlio-pay-smooth-payments-with-stripe)
+
+After you are signed in, you'll find your unique API Key in the request example on the [Stripe Payments API page](https://market.mashape.com/noodlio/noodlio-pay-smooth-payments-with-stripe):
+
+```
+curl -X POST --include 'https://noodlio-pay.p.mashape.com/charge/token' \
+  -H 'X-Mashape-Key: <YOUR-MASHAPE-API-KEY>' \
+  -H 'Content-Type: application/x-www-form-urlencoded' \
+  -H 'Accept: application/json' \
+  ... other values
+```
+
+Replace the `NOODLIO_PAY_API_KEY` with this unique identifier.
+
+**Stripe Account**
+
+If you haven't already [sign up for a Stripe Account](https://www.stripe.com). After that, you'll need to retrieve your unique Stripe Account ID (field: `stripe_account`), which you can obtain on the following pages (Note: you'll need to visit both links once):
+
+- For the production mode:
+[https://www.noodl.io/pay/connect](https://www.noodl.io/pay/connect)
+- For the development mode:
+[https://www.noodl.io/pay/connect/test](https://www.noodl.io/pay/connect/test)
+
+The Stripe Account ID looks something like `acct_12abcDEF34GhIJ5K`. Replace the constant `STRIPE_ACCOUNT_ID`.
+
+That's it. Our server is configured and ready to receive payments.
+
+## Step 3: Update the config with the new environments
 
 In the file `app.js`, head over to the part that starts with `.config` and specifically **remove** the following lines of code:
 
@@ -75,7 +94,7 @@ switch (TEST_MODE) {
 ```
 
 
-## Step 5: Update the factory `StripeCharge`
+## Step 4: Update the factory `StripeCharge`
 
 Head over to your `services.js` (or wherever you have the factory `StripeCharge`). Add the following line of code at the top of the factory (after the line `var self = this`):
 
@@ -92,7 +111,7 @@ Head over to your `services.js` (or wherever you have the factory `StripeCharge`
   // ...
 ```
 
-## Step 6: Replace `self.chargeUser()`
+## Step 5: Replace `self.chargeUser()`
 
 Replace `self.chargeUser()` in the factory `StripeCharge` with the following lines of code:
 
